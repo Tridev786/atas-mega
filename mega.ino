@@ -12,11 +12,11 @@ void setup() {
 
 void loop() {
 
-  float pir1;  
-  float pir2;
-  float pir3;
-  float pir4;
-  float pir5;
+  float pir1 = 0.0;  
+  float pir2 = 0.0;
+  float pir3 = 0.0;
+  float pir4 = 0.0;
+  float pir5 = 0.0;
 
   pir1 = analogRead(PIR_1) * (5.0 / 1023.0);
   pir2 = analogRead(PIR_2) * (5.0 / 1023.0);
@@ -28,5 +28,6 @@ void loop() {
 
   Serial2.println(serialData);
   Serial.println(serialData);
+  delay(1000);
 }
 
