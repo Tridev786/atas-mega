@@ -24,6 +24,9 @@ const int PIR_13 = A12;
 // Home door
 const int PIR_14 = A13;
 
+// Home door broken
+const int PIR_15 = A14;
+
 void setup() {
   Serial2.begin(19200);
   Serial.begin(9600);
@@ -31,7 +34,7 @@ void setup() {
 
 void loop() {
 
- byte p1=0,p2=0,p3=0,p4=0,p5=0,p11=0,p12=0,p13=0,p14 = 0; 
+ byte p1=0,p2=0,p3=0,p4=0,p5=0,p11=0,p12=0,p13=0,p14=0,p15=1; 
 
  float pir1 = analogRead(PIR_1) * (5.0 / 1023.0);
  float pir2 = analogRead(PIR_2) * (5.0 / 1023.0);
@@ -42,6 +45,7 @@ void loop() {
  float pir12 = analogRead(PIR_12) * (5.0 / 1023.0);
  float pir13 = analogRead(PIR_13) * (5.0 / 1023.0);
  float pir14 = analogRead(PIR_14) * (5.0 / 1023.0);
+ float pir15 = analogRead(PIR_15) * (5.0 / 1023.0);
  
   if(pir1>=4.9){
     p1 = 1;
@@ -59,13 +63,19 @@ void loop() {
     p12 = 1;
   }else if(pir13>=4.9){
     p13 = 1;
-  }else if(pir14>=4.9){
+  }
+  
+  if(pir14>=4.9){
     p14 = 1;
+  }
+
+  if(pir15>=4.9){
+    p15 = 0;
   }
 
   String serialData = String(p1) + "," + String(p2) + "," + String(p3) 
                       + "," + String(p4) + "," + String(p5) + "," + String(p11)
-                      + "," + String(p12) + "," + String(p13) + "," + String(p14);
+                      + "," + String(p12) + "," + String(p13) + "," + String(p14)+ "," + String(p15);
 
   Serial2.println(serialData);
   Serial.println(serialData);
