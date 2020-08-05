@@ -11,6 +11,7 @@ const int PIR_7 = A6;
 const int PIR_8 = A7;
 const int PIR_9 = A8;
 const int PIR_10 = A9;
+int sirenValue = 0;
 
 // Fire
 const int PIR_11 = A10;
@@ -27,9 +28,13 @@ const int PIR_14 = A13;
 // Home door broken
 const int PIR_15 = A14;
 
+const int siren = 7;
+
 void setup() {
   Serial2.begin(19200);
   Serial.begin(9600);
+  pinMode(siren, OUTPUT);
+  sirenValue = 0;
 }
 
 void loop() {
@@ -48,20 +53,28 @@ void loop() {
  float pir15 = analogRead(PIR_15) * (5.0 / 1023.0);
  
   if(pir1>=4.9){
+    sirenValue= 1;
     p1 = 1;
   }else if(pir2>=4.9){
+    sirenValue= 1;
     p2 = 1;
   }else if(pir3>=4.9){
+    sirenValue= 1;
     p3 = 1;
   }else if(pir4>=4.9){
+    sirenValue= 1;
     p4 = 1;
   }else if(pir5>=4.9){
+    sirenValue= 1;
     p5 = 1;
   }else if(pir11>=4.9){
+    sirenValue= 1;
     p11 = 1;
   }else if(pir12>=4.9){
+    sirenValue= 1;
     p12 = 1;
   }else if(pir13>=4.9){
+    sirenValue= 1;
     p13 = 1;
   }
   
@@ -70,7 +83,12 @@ void loop() {
   }
 
   if(pir15>=4.9){
+    sirenValue= 1;
     p15 = 0;
+  }
+
+  if(sirenValue == 1){
+    digitalWrite(siren, HIGH);
   }
 
   String serialData = String(p1) + "," + String(p2) + "," + String(p3) 
